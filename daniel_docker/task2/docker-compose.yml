@@ -1,0 +1,19 @@
+version: '3'
+services:
+  nginx:
+    build:
+      context: ./nginx # Ruta donde está el Dockerfile de Nginx
+    ports:
+      - "80:80" # Mapea el puerto 80 del host al contenedor
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf # Volumen para configuración de Nginx
+    depends_on:
+      - apache # Asegura que Apache se levante primero
+
+  apache:
+    build:
+      context: ./apache # Ruta donde está el Dockerfile de Apache
+    volumes:
+      - ./html:/var/www/html # Volumen para servir contenido dinámico HTML
+    expose:
+      - "80" # Exponer el puerto 80 para que Nginx pueda conectarse internamente

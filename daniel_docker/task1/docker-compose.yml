@@ -1,0 +1,17 @@
+version: '3.9'
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf # Configuración personalizada de Nginx
+    depends_on:
+      - apache
+
+  apache:
+    image: httpd:latest
+    volumes:
+      - /c/Users/daarco/Desktop/danielarco_basics/daniel_docker/task1:/var/www/html
+    expose:
+    - "80" # Apache solo expone su puerto 80 para que Nginx lo pueda acceder internamente
